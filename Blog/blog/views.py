@@ -1,11 +1,13 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import SignUpForm
+from .forms import SignUpForm, PostForm
 
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post
+
+def Profile(request):
+    return render(request, 'profile.html')
 
 class SignUpView(generic.CreateView):
     form_class = SignUpForm
@@ -22,5 +24,12 @@ class DetailView(DetailView):
 
 class AddPostView(CreateView):
     model = Post
+    form_class = PostForm
     template_name = 'add_post.html'
-    fields = '__all__'
+    # fields = '__all__'
+
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'update_post.html'
+    # fields = ['title', 'title_tag', 'body']
