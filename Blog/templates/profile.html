@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Profile {% endblock %}
 
@@ -8,9 +9,14 @@
 
 <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+          {% if user.Profile.image.url %}
+            <img class="rounded-circle account-img" src="{{ user.Profile.image.url }}">
+          {% else %}
+            <img class="rounded-circle account-img" src="{% static 'images/default.png' %}">
+          {% endif %}
         <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
+            <br/>
+          <h2 class="account-heading"> {{ user.username }}</h2>
           <p class="text-secondary">{{ user.first_name }} {{ user.last_name }}</p>
           <p class="text-secondary">{{ user.email }}</p>
         </div>
@@ -26,7 +32,13 @@
 
 <br/><br/><br/>
 
+<p>Existing User</p>
 <a href="{% url 'login' %}" >Log In</a>
+
+<br/><br/>
+
+<p>New User</p>
+<a href="{% url 'signup' %}" >Sign Up</a>
 
 {% endif %}
 
