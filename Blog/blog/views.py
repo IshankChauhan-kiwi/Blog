@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, PostForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -18,6 +19,7 @@ class SignUpView(generic.CreateView):
 class IndexView(ListView):
     model = Post
     template_name = 'index.html'
+    ordering = ['-post_date']
     ordering = ['-id']
 
 class DetailView(DetailView):

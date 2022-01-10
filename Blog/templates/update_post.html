@@ -4,17 +4,29 @@
 
 {% block content %}
 
-    <h1>Update Post...</h1>
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1>Update Post...</h1>
 
-    <br/>
-    <div class="mb-3">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-secondary" >Update</button>
-    </form>
-    </div>
+        <br/>
+        <div class="mb-3">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary" >Update</button>
+        </form>
+        </div>
+    {% else %}
 
+        You're not allowed here!
+
+    {% endif %}
+
+{% else %}
+
+    You're not allowed here!
+
+{% endif %}
 
 {% endblock %}
 

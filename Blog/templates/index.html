@@ -2,14 +2,15 @@
 
 {% block content %}
 
-    <h1>Welcome to My Blog</h1>
+    <h1>Welcome to My Blog!</h1>
         <ul>
             {% for post in object_list %}
-            <li><a href="{% url 'detail' post.pk %}">{{ post.title }}</a>
-                - {{ post.author.first_name }} {{ post.author.last_name }}
-                - <small> <a href="{% url 'update' post.pk %}">Edit</a> </small>
-                - <small> <a href="{% url 'delete' post.pk %}">Delete</a> </small><br/>
-            {{ post.body }} </li>
+            <li>TITLE- <a href="{% url 'detail' post.pk %}">{{ post.title }}</a><br/>
+                 {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}
+<!--                - <small> <a href="{% url 'update' post.pk %}">Edit</a> </small>-->
+<!--                - <small> <a href="{% url 'delete' post.pk %}">Delete</a> </small>-->
+            <br/><br/>
+            {{ post.body|slice:"250" }} </li> <br/>
             {% endfor %}
         </ul>
 

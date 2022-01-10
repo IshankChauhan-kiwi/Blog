@@ -4,22 +4,34 @@
 
 {% block content %}
 
-    <h1>Delete Post...</h1>
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
 
-    <br/>
-    <h3>Delete: {{ post.title }}</h3>
-    <br/>
+        <h1>Delete Post...</h1>
 
-    <div class="mb-3">
-    <form method="POST">
-        {% csrf_token %}
-        <strong>Are you sure?</strong><br/><br/>
-        <button class="btn btn-secondary" >Delete Post</button> <br/><br/>
-        <a href="{%  url 'index' %}" class="btn btn-secondary"> Back </a>
+        <br/>
+        <h3>Delete: {{ post.title }}</h3>
+        <br/>
 
-    </form>
-    </div>
+        <div class="mb-3">
+        <form method="POST">
+            {% csrf_token %}
+            <strong>Are you sure?</strong><br/><br/>
+            <button class="btn btn-secondary" >Delete Post</button> <br/><br/>
+            <a href="{%  url 'index' %}" class="btn btn-secondary"> Back </a>
+        </form>
+        </div>
+    {% else %}
 
+        You're not allowed here!
+
+    {% endif %}
+
+{% else %}
+
+You're not allowed here!
+
+{% endif %}
 
 {% endblock %}
 

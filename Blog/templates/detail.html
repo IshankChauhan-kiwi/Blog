@@ -4,16 +4,27 @@
 
 {% block content %}
 
-<h1>{{ post.title }}</h1>
-<small>By: {{ post.author.first_name }} {{ post.author.last_name }}
-    - <a href="{% url 'update' post.pk %}">Edit</a> </small>
-    - <small> <a href="{% url 'delete' post.pk %}">Delete</a> </small><br/>
-<hr>
-<br/>
-{{ post.body }}
+    <h1>{{ post.title }}</h1>
+    <small>By:
+        {{ post.author.first_name }} {{ post.author.last_name }} -
+        {{ post.post_date }}
 
-<br/><br/><br/><br/><br/><br/>
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+                - <a href="{% url 'update' post.pk %}">Edit</a> </small>
+                - <small> <a href="{% url 'delete' post.pk %}">Delete</a> </small><br/>
+            {% endif %}
+        {% endif %}
 
-<a href="{%  url 'index' %}" class="btn btn-secondary"> Back </a>
+    <hr>
+    {% if post.image %}
+        <img src="{{ post.image.url }}">
+    {% endif %}
+    <br/><br/>
+    {{ post.body }}
+
+    <br/><br/><br/>
+
+    <a href="{%  url 'index' %}" class="btn btn-secondary"> Back </a>
 
 {% endblock %}
