@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="content-section">
+      <div class="media">
+          {% if user.Profile.image.url %}
+            <img class="rounded-circle account-img" src="{{ user.Profile.image.url }}">
+          {% else %}
+            <img class="rounded-circle account-img" src="{% static 'images/default.png' %}">
+          {% endif %}
+        <div class="media-body">
+            <br/>
+          <h2 class="account-heading"> {{ user.username }}</h2>
+          <p class="text-secondary">{{ user.first_name }} {{ user.last_name }}</p>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+</div>
+<br/><br/><br/>
+
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+
+{% else %}
+
+<h1>You are not logged in</h1>
+
+<br/><br/><br/>
+
+<p>Existing User</p>
+<a href="{% url 'login' %}" >Log In</a>
+
+<br/><br/>
+
+<p>New User</p>
+<a href="{% url 'signup' %}" >Sign Up</a>
+
+{% endif %}
+
+{% endblock %}
+
